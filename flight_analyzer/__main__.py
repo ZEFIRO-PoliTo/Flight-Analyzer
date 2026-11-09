@@ -156,9 +156,21 @@ def cmd_steps(args):
     return 0
 
 
+def _console_utf8():
+    """Su Windows l'uscita rediretta (file, pipe, CI) usa cp1252, che non ha °, −, ζ…: si passa a UTF-8."""
+    for stream in (sys.stdout, sys.stderr):
+        enc = (getattr(stream, "encoding", None) or "").lower().replace("-", "")
+        if stream is not None and hasattr(stream, "reconfigure") and enc != "utf8":
+            try:
+                stream.reconfigure(encoding="utf-8", errors="replace")
+            except (ValueError, OSError):
+                pass
+
+
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
     if argv and argv[0] in ("report", "punteggio", "gradini"):
+        _console_utf8()
         ap = argparse.ArgumentParser(prog="flight_analyzer")
         sub = ap.add_subparsers(dest="cmd")
         rp = sub.add_parser("report", help="crea il report in PDF (predefinito) o HTML")
