@@ -1,0 +1,92 @@
+{
+  "nome": "Vespa hover (scheda di taratura)",
+  "nota": "ok (60 punti) = criterio della scheda di taratura; good (100 punti) = 70% del criterio; bad (0 punti) = 200% del criterio. Per i rimbalzi, che sono numeri interi: good 0, ok = criterio, bad = criterio + 2 (assetto: ok 0,5, cioè nessun rimbalzo). Il margine di fase non è nella scheda: soglie PX4 standard, peso basso.",
+  "loops": {
+    "mc_rate": {
+      "definizioni": "scheda",
+      "rise_target_s": {"roll": "auto", "pitch": "auto", "yaw": "auto"},
+      "min_excitation": 0.2,
+      "gradino": {
+        "ampiezza": {"roll": 45, "pitch": 45, "yaw": 30},
+        "durata_s": {"roll": 0.5, "pitch": 0.5, "yaw": 1.5},
+        "fascia_pct": 10,
+        "errore_ultimi_s": 0.2
+      },
+      "metrics": {
+        "delay": {"good": 0.084, "ok": 0.12, "bad": 0.24, "weight": 20},
+        "overshoot_cmd": {"good": 10.5, "ok": 15, "bad": 30, "weight": 20},
+        "settling_band": {"good": 0.245, "ok": 0.35, "bad": 0.7, "weight": 15},
+        "end_error": {"good": 3.5, "ok": 5, "bad": 10, "weight": 15},
+        "bounces": {"good": 0, "ok": 1, "bad": 3, "weight": 10},
+        "saturation": {"good": 3.5, "ok": 5, "bad": 10, "weight": 10},
+        "phase_margin": {"good": 50, "ok": 35, "bad": 20, "weight": 10}
+      },
+      "metrics_asse": {
+        "yaw": {
+          "delay": {"good": 0.175, "ok": 0.25, "bad": 0.5, "weight": 20},
+          "overshoot_cmd": {"good": 10.5, "ok": 15, "bad": 30, "weight": 20},
+          "settling_band": {"good": 0.7, "ok": 1.0, "bad": 2.0, "weight": 15},
+          "end_error": {"good": 7, "ok": 10, "bad": 20, "weight": 15},
+          "bounces": {"good": 0, "ok": 1, "bad": 3, "weight": 10},
+          "saturation": {"good": 7, "ok": 10, "bad": 20, "weight": 10},
+          "phase_margin": {"good": 50, "ok": 35, "bad": 20, "weight": 10}
+        }
+      }
+    },
+    "mc_att": {
+      "definizioni": "scheda",
+      "rise_target_s": {"roll": "auto", "pitch": "auto", "yaw": "auto"},
+      "min_excitation": 0.05,
+      "gradino": {
+        "ampiezza": {"roll": 10, "pitch": 10, "yaw": 10},
+        "durata_s": {"roll": 1.5, "pitch": 1.5, "yaw": 1.5},
+        "fascia_assoluta": 1.0,
+        "errore_da_s": 1.0
+      },
+      "metrics": {
+        "delay": {"good": 0.175, "ok": 0.25, "bad": 0.5, "weight": 20},
+        "overshoot_cmd": {"good": 7, "ok": 10, "bad": 20, "weight": 20},
+        "settling_band": {"good": 0.56, "ok": 0.8, "bad": 1.6, "weight": 20},
+        "end_error_deg": {"good": 0.35, "ok": 0.5, "bad": 1.0, "weight": 15},
+        "bounces": {"good": 0, "ok": 0.5, "bad": 2, "weight": 15},
+        "saturation": {"good": 3.5, "ok": 5, "bad": 10, "weight": 10}
+      }
+    }
+  },
+  "gradini": {
+    "soglia_rate_dps": 20,
+    "soglia_assetto_deg": 3,
+    "soglia_ignora_modo_dps": 10,
+    "soglia_ignora_modo_deg": 2,
+    "durata_picco_s": 0.05,
+    "durata_min_s": 0.2,
+    "troncato_frazione_mediana": 0.9,
+    "modo_stabile_prima_s": 0.4,
+    "valore_prima_s": 0.3,
+    "partenza_finestra_s": 0.1,
+    "partenza_max_inclinazione_deg": 2.0,
+    "partenza_max_rate_dps": 5.0,
+    "partenza_max_vel_orizz_ms": 0.5,
+    "altri_assi_max_dps": 3.0,
+    "altri_assi_max_deg": 1.0,
+    "saturazione_dopo_s": 0.5,
+    "esclusione_cambio_modo_s": 0.05,
+    "rimbalzi_min_campioni": 2,
+    "min_validi_per_verso": 3
+  },
+  "tenuta": {
+    "durata_min_s": 30,
+    "durata_min_indicativa_s": 5,
+    "scarta_inizio_s": 1,
+    "vel_setpoint_max_ms": 0.3,
+    "assetto_rms_deg": 1.0,
+    "assetto_picco_deg": 3.0,
+    "posizione_orizz_m": 0.5,
+    "posizione_vert_m": 0.3,
+    "integratori_max": 0.15,
+    "motori_min": 0.05,
+    "motori_max": 0.95,
+    "spinta_hover_attesa": 0.52,
+    "stick_max": 0.1
+  }
+}

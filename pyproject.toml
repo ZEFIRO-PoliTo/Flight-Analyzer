@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flight-analyzer"
+version = "1.2.0"
+description = "Analisi dei log PX4 (.ulg) e valutazione oggettiva dei PID"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.23", "matplotlib>=3.6", "PySide6>=6.4", "reportlab>=3.6", "pypdf>=3.0"]
+
+[project.scripts]
+flight-analyzer-cli = "flight_analyzer.__main__:main"
+
+[project.gui-scripts]
+flight-analyzer = "flight_analyzer.gui:run"
+
+[tool.setuptools]
+packages = ["flight_analyzer"]
+
+[tool.setuptools.package-data]
+flight_analyzer = ["resources/*.png", "resources/*.ico"]

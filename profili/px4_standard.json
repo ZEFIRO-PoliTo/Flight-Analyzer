@@ -1,0 +1,207 @@
+{
+  "nome": "PX4 standard (predefinito)",
+  "loops": {
+    "mc_rate": {
+      "rise_target_s": {
+        "roll": "auto",
+        "pitch": "auto",
+        "yaw": "auto"
+      },
+      "min_excitation": 0.2,
+      "metrics": {
+        "overshoot": {
+          "good": 5,
+          "ok": 15,
+          "bad": 35,
+          "weight": 25
+        },
+        "rise_ratio": {
+          "good": 1.0,
+          "ok": 1.5,
+          "bad": 3.0,
+          "weight": 15
+        },
+        "settling_ratio": {
+          "good": 2.5,
+          "ok": 4.0,
+          "bad": 6.0,
+          "weight": 15
+        },
+        "ss_error": {
+          "good": 3,
+          "ok": 10,
+          "bad": 25,
+          "weight": 10
+        },
+        "phase_margin": {
+          "good": 50,
+          "ok": 35,
+          "bad": 20,
+          "weight": 15
+        },
+        "resonance": {
+          "good": 1.0,
+          "ok": 3.0,
+          "bad": 6.0,
+          "weight": 5
+        },
+        "noise": {
+          "good": 0.01,
+          "ok": 0.03,
+          "bad": 0.08,
+          "weight": 5
+        },
+        "saturation": {
+          "good": 0.5,
+          "ok": 3,
+          "bad": 10,
+          "weight": 5
+        },
+        "integrator": {
+          "good": 1,
+          "ok": 5,
+          "bad": 20,
+          "weight": 5
+        }
+      }
+    },
+    "mc_att": {
+      "rise_target_s": {
+        "roll": "auto",
+        "pitch": "auto",
+        "yaw": "auto"
+      },
+      "min_excitation": 0.05,
+      "metrics": {
+        "overshoot": {
+          "good": 5,
+          "ok": 15,
+          "bad": 30,
+          "weight": 30
+        },
+        "rise_ratio": {
+          "good": 1.2,
+          "ok": 1.6,
+          "bad": 3.0,
+          "weight": 25
+        },
+        "settling_ratio": {
+          "good": 1.8,
+          "ok": 3.0,
+          "bad": 5.0,
+          "weight": 20
+        },
+        "ss_error": {
+          "good": 3,
+          "ok": 10,
+          "bad": 25,
+          "weight": 15
+        },
+        "resonance": {
+          "good": 1.0,
+          "ok": 3.0,
+          "bad": 6.0,
+          "weight": 10
+        }
+      }
+    },
+    "fw_rate": {
+      "rise_target_s": {
+        "roll": "auto",
+        "pitch": "auto",
+        "yaw": "auto"
+      },
+      "min_excitation": 0.1,
+      "metrics": {
+        "overshoot": {
+          "good": 5,
+          "ok": 15,
+          "bad": 35,
+          "weight": 25
+        },
+        "rise_ratio": {
+          "good": 1.0,
+          "ok": 1.5,
+          "bad": 3.0,
+          "weight": 20
+        },
+        "settling_ratio": {
+          "good": 2.5,
+          "ok": 4.0,
+          "bad": 6.0,
+          "weight": 15
+        },
+        "ss_error": {
+          "good": 5,
+          "ok": 15,
+          "bad": 30,
+          "weight": 15
+        },
+        "resonance": {
+          "good": 1.0,
+          "ok": 3.0,
+          "bad": 6.0,
+          "weight": 10
+        },
+        "noise": {
+          "good": 0.01,
+          "ok": 0.03,
+          "bad": 0.08,
+          "weight": 5
+        },
+        "saturation": {
+          "good": 0.5,
+          "ok": 3,
+          "bad": 10,
+          "weight": 5
+        },
+        "integrator": {
+          "good": 1,
+          "ok": 5,
+          "bad": 20,
+          "weight": 5
+        }
+      }
+    },
+    "fw_att": {
+      "rise_target_s": {
+        "roll": "auto",
+        "pitch": "auto",
+        "yaw": "auto"
+      },
+      "min_excitation": 0.05,
+      "metrics": {
+        "overshoot": {
+          "good": 5,
+          "ok": 15,
+          "bad": 30,
+          "weight": 30
+        },
+        "rise_ratio": {
+          "good": 1.2,
+          "ok": 1.6,
+          "bad": 3.0,
+          "weight": 25
+        },
+        "settling_ratio": {
+          "good": 1.8,
+          "ok": 3.0,
+          "bad": 5.0,
+          "weight": 20
+        },
+        "ss_error": {
+          "good": 5,
+          "ok": 15,
+          "bad": 30,
+          "weight": 15
+        },
+        "resonance": {
+          "good": 1.0,
+          "ok": 3.0,
+          "bad": 6.0,
+          "weight": 10
+        }
+      }
+    }
+  }
+}

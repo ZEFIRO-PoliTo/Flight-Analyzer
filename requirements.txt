@@ -1,0 +1,5 @@
+numpy>=1.23
+matplotlib>=3.6
+PySide6>=6.4
+reportlab>=3.6
+pypdf>=3.0
