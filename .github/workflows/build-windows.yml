@@ -14,6 +14,8 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      PYTHONUTF8: "1"   # stampe con °, −, ζ: senza, la console di Windows usa cp1252
     steps:
       - uses: actions/checkout@v4
 
