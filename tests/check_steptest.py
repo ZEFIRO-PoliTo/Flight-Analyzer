@@ -31,6 +31,7 @@ import make_step_log  # noqa: E402
 
 from flight_analyzer import analysis, dsp, modes, scoring, steptest  # noqa: E402
 from flight_analyzer.logdata import LogData  # noqa: E402
+from flight_analyzer.__main__ import _console_utf8  # noqa: E402
 
 FAILS = []
 
@@ -217,6 +218,7 @@ def test_special_logs(work):
 
 
 def main():
+    _console_utf8()  # su Windows (CI, pipe) la console è cp1252: niente ζ, −, °
     work = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(tempfile.mkdtemp(prefix="gradini_"))
     work.mkdir(parents=True, exist_ok=True)
     test_second_order()
