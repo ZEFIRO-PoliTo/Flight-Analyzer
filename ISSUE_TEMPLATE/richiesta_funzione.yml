@@ -1,0 +1,21 @@
+name: Richiesta di una funzione
+description: Un grafico, un'analisi o un comando che manca
+labels: ["miglioramento"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: A cosa serve
+      description: Quale problema di taratura o di analisi risolverebbe (es. «non riesco a vedere la potenza dei propulsori in transizione»).
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Come la immagini
+      description: Cosa dovrebbe mostrare o calcolare, con quali dati del log (topic e campi, se li conosci).
+  - type: textarea
+    id: riferimenti
+    attributes:
+      label: Riferimenti
+      description: Link a documentazione PX4, Flight Review, articoli, schermate.

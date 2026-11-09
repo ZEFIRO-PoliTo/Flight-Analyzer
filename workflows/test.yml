@@ -1,0 +1,42 @@
+# Test automatici a ogni push e a ogni pull request (Linux, nessuna finestra: la GUI è provata con un sostituto di Qt).
+# Nelle regole del ramo main va reso obbligatorio il controllo «test».
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: "Librerie (senza PySide6: la GUI usa il sostituto tests/qt_stub.py)"
+        run: pip install "numpy>=1.23" "matplotlib>=3.6" "reportlab>=3.6"
+      - name: Traduzioni
+        run: python tests/check_i18n.py
+      - name: Identificazione contro il simulatore
+        run: python tests/validate_loopid.py
+      - name: Prove a gradino
+        run: python tests/check_steptest.py lavoro_gradini
+      - name: Log sintetici, riga di comando e report
+        run: |
+          python tests/make_synthetic_log.py volo_B.ulg --taratura B
+          python tests/make_synthetic_log.py volo_C.ulg --taratura C
+          python tests/check_synthetic.py volo_B.ulg
+          python -m flight_analyzer report volo_B.ulg -o report.pdf
+          python -m flight_analyzer gradini lavoro_gradini/gradini.ulg --senza-png-gradini
+      - name: Interfaccia (con il sostituto di Qt)
+        run: |
+          python tests/make_minimal_log.py senza_volo.ulg
+          python tests/smoke_gui.py volo_B.ulg volo_C.ulg senza_volo.ulg uscita_gui

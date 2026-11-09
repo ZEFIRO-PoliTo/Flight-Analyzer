@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Guide e domande frequenti
+    url: ../../wiki
+    about: Come fare le prove di taratura e leggere i risultati

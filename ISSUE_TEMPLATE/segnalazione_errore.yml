@@ -1,0 +1,39 @@
+name: Segnalazione di un errore
+description: L'app si blocca, dà un errore o mostra un risultato sbagliato
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Grazie della segnalazione. Più dettagli ci sono, prima si trova il problema.
+  - type: input
+    id: versione
+    attributes:
+      label: Versione dell'app
+      description: Menu Aiuto → Informazioni (es. 1.2.0)
+    validations:
+      required: true
+  - type: dropdown
+    id: dove
+    attributes:
+      label: Dove succede
+      options: [Apertura del log, Panoramica, Analisi PID, Prove a gradino, Altre schede, Report PDF/HTML, Riga di comando, Installer]
+    validations:
+      required: true
+  - type: textarea
+    id: cosa
+    attributes:
+      label: Cosa succede
+      description: Che cosa si stava facendo, che cosa ci si aspettava e che cosa è successo.
+    validations:
+      required: true
+  - type: textarea
+    id: errore
+    attributes:
+      label: Messaggio di errore
+      description: Nella finestra di errore premere «Mostra dettagli…» e incollare il testo qui.
+      render: text
+  - type: input
+    id: log
+    attributes:
+      label: Link al log
+      description: I .ulg sono troppo grandi per GitHub; mettere il link alla cartella condivisa.

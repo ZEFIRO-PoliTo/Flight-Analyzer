@@ -1,0 +1,82 @@
+# Crea l'installer e l'eseguibile portatile per Windows.
+# Parte a mano (Actions → Build Windows → Run workflow) o quando si pubblica un tag vX.Y.Z:
+# in quel caso i file vengono allegati anche alla release di GitHub.
+name: Build Windows
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Librerie
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Il tag coincide con la versione del codice
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: |
+          $v = python -c "import flight_analyzer; print(flight_analyzer.__version__)"
+          if ("v$v" -ne "${{ github.ref_name }}") { throw "tag ${{ github.ref_name }} diverso dalla versione v$v in flight_analyzer/__init__.py" }
+
+      - name: Controlli
+        run: |
+          python tests/check_i18n.py
+          python tests/make_synthetic_log.py prova.ulg
+          python -m flight_analyzer report prova.ulg -o prova.pdf
+          python -m flight_analyzer report prova.ulg -o prova_en.html --lingua en
+          python tests/check_steptest.py controlli_gradini
+          python tests/make_step_log.py gradini.ulg
+          python -m flight_analyzer gradini gradini.ulg
+
+      - name: Applicazione (cartella)
+        run: pyinstaller --noconfirm packaging/flight_analyzer.spec
+
+      - name: Prova dell'eseguibile (crea un report senza aprire finestre)
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath "dist\FlightAnalyzer\FlightAnalyzer.exe" -ArgumentList "report", "prova.ulg", "-o", "exe.pdf" -Wait -PassThru
+          if (!(Test-Path exe.pdf)) { throw "l'eseguibile non ha creato il report (codice $($p.ExitCode))" }
+
+      - name: Eseguibile portatile
+        env:
+          FA_ONEFILE: "1"
+        run: pyinstaller --noconfirm --distpath dist/portable --workpath build/portable packaging/flight_analyzer.spec
+
+      - name: Installer
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+          $v = python -c "import flight_analyzer; print(flight_analyzer.__version__)"
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$v" packaging\setup.iss
+          Move-Item dist\portable\FlightAnalyzer.exe "dist\FlightAnalyzer-$v-portable.exe"
+          "VERSION=$v" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FlightAnalyzer-${{ env.VERSION }}-windows
+          path: |
+            dist/FlightAnalyzer-*-setup.exe
+            dist/FlightAnalyzer-*-portable.exe
+
+      - name: Allegati alla release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/FlightAnalyzer-*-setup.exe
+            dist/FlightAnalyzer-*-portable.exe

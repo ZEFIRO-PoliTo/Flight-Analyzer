@@ -1,0 +1,25 @@
+__pycache__/
+*.pyc
+build/
+dist/
+packaging/version_info_auto.txt
+*.report.pdf
+*.report.html
+
+# log di volo e uscite dell'app: non vanno nel repository (sono grandi e cambiano a ogni prova)
+*.ulg
+*.ulog
+*.bson
+*_riepilogo.png
+*_riepilogo.csv
+*_gradini/
+*.verita.json
+
+# ambienti e file dei sistemi operativi
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
